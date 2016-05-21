@@ -20,16 +20,19 @@ def excute():
 		# WARNING: objects cannot be written in JSON
 		i = 0
 		while (i + 4 < len(query)):
-			tmp1 = requests.get(query[i]['API'].provider.baseurl + query[i]['API'].slug, data = query[i]['args'])
-			tmp2 = requests.get(query[i + 2]['API'].provider.baseurl + query[i]['API'].slug, data = query[i + 2]['args'])
-			if query[i]['API'].retu in ['int', 'float']:
+			API1 = API.objects.get(id = query[i]['API'].API)
+			API2 = API.objects.get(id = query[i + 2]['API'].API)
+			tmp1 = requests.get(API1.provider.baseurl + API1.slug, data = query[i]['args'])
+			tmp2 = requests.get(API2.provider.baseurl + API2.slug, data = query[i + 2]['args'])
+			if API1.retu in ['int', 'float']:
 				flag = eval(tmp1 + query[i + 1] + tmp2)
 			else:
 				flag = (tmp1 == tmp2)
 			if flag == False:
 				continue
 			i = i + 4
-		requests.get(action['API'].provider.baseurl + action['API'].slug)
+		API1 = API.objects.get(id = action['API'].API)
+		requests.get(API1.provider.baseurl + action['API'].slug)
 
 
 sched = BlockingScheduler()
