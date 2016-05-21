@@ -72,11 +72,11 @@ class Variable():
     def __init__(self, _key, _value, _id=None):
         self.key = _key
         self.value = _value
-        self._id = _value
+        self._id = _id
 
     @staticmethod
     def create(_key, _value, _id=None):
-        return API(_key, _value, _id)
+        return Variable(_key, _value, _id)
 
     @staticmethod
     def get(_key):
@@ -87,8 +87,23 @@ class Variable():
         _vars = db['Var']
         var = _vars.find_one(args)
         if var is None:
-            return None
-        return API(var['key'], var['value'], var['_id'])
+            return Variable(None, 'Not exist', None)
+        return Variable(var['key'], var['value'], var['_id'])
+
+    @staticmethod
+    def set(_key, _value):
+        try:
+            v = Variable.get(_key)
+            if v.value == 'Not exist':
+                v = Variable.create(_key, _value)
+            else:
+                v.value = _value
+            if v.save():
+                return "succeed"
+            else:
+                return "failed"
+        except:
+            return "failed"
 
     def remove(self):
         db = connect_to_mongodb()
@@ -97,7 +112,7 @@ class Variable():
 
     def save(self):
         db = connect_to_mongodb()
-        _vars = db['API']
+        _vars = db['Var']
         if self._id is None:
             _vars.insert({
                 'key': self.key,
