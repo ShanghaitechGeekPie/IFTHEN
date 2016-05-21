@@ -67,5 +67,47 @@ class API():
             return True
         return False
 
+
 class Variable():
-    pass
+    def __init__(self, _key, _value, _id=None):
+        self.key = _key
+        self.value = _value
+        self._id = _value
+
+    @staticmethod
+    def create(_key, _value, _id=None):
+        return API(_key, _value, _id)
+
+    @staticmethod
+    def get(_key):
+        db = connect_to_mongodb()
+        args = {
+            'key': _key,
+        }
+        _vars = db['Var']
+        var = _vars.find_one(args)
+        if var is None:
+            return None
+        return API(var['key'], var['value'], var['_id'])
+
+    def remove(self):
+        db = connect_to_mongodb()
+        _vars = db['Var']
+        return _vars.find_one_and_delete({'_id': self._id})
+
+    def save(self):
+        db = connect_to_mongodb()
+        _vars = db['API']
+        if self._id is None:
+            _vars.insert({
+                'key': self.key,
+                'value': self.value
+            })
+            return True
+        else:
+            _vars.update({'_id': self._id}, {'$set': {
+                'key': self.key,
+                'value': self.value
+            }})
+            return True
+        return False
