@@ -1,0 +1,119 @@
+
+:global {
+  html, body, #root {
+    height: 100%;
+  }
+  body {
+    background: #fafafa;
+  }
+
+  #menu .ant-collapse {
+    border: 0px;
+    background: #0078ae;
+  }
+  #menu .ant-collapse-header,
+  #menu .ant-collapse-header * {
+    color: #fafafa;
+  }
+  #menu .ant-collapse-item,
+  #menu .ant-menu-submenu-active,
+  #menu .ant-menu-submenu-title:hover {
+    color: #a6def7;
+    border: 0px;
+  }
+  #menu .ant-collapse-content {
+    color: #fafafa;
+    background: #005074;
+    border-radius: 0px;
+  }
+
+  #MainLayout {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+  }
+  #MainLayout > .row {
+    height: 100%;
+  }
+  #MainLayout-MenuLayout {
+    height: 100%;
+    overflow: auto;
+    background: #0078ae;
+  }
+  #MainLayout-MainLayout {
+    height: 100%;
+    overflow: auto;
+    background: #ECECEC;
+  }
+
+  #logo {
+    padding: 40px 40px;
+    width: 100%;
+  }
+  #import-provider {
+    margin: 0px 10% 20px 10%;
+    width: 80%;
+  }
+  #LogicListLayout > .row,
+  #LogicLayout > .row {
+    padding: 10px 20px;
+  }
+  .card-container {
+    margin: 20px 0px;
+  }
+  .card-container a {
+    color: #666;
+  }
+  .ant-card-body > div{
+    width: 100%;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .ant-card-body > div:after{
+    content:"...";
+  }
+  .card-container .ant-card-head {
+    border-bottom: 0px;
+  }
+  #LogicListLayout-header,
+  #LogicLayout-header {
+    background: #fafafa;
+    padding: 20px;
+  }
+
+  #LogicLayout-name {
+    border: 0px transparent;
+  }
+  #LogicLayout-name:focus {
+    border-bottom: 1px solid #57c5f7;
+    box-shadow: none;
+    border-radius: 0px;
+  }
+  .LogicLayout-keyword h1 {
+    text-align: right;
+    color: #0078ae;
+    font-size: 30px;
+    padding-right: 30px;
+    font-style: italic;
+  }
+
+  #if-container,
+  #then-container {
+    margin-top: 15px;
+    padding: 10px;
+    min-height: 200px;
+    border-radius: 10px;
+    border: 1px solid #e6f6fd;
+    box-shadow: 0px 0px 20px #e6f6fd inset
+  }
+
+  .APIbutton-container button{
+    width: 90%;
+    height: 30px;
+    margin: 10px 5% 10px 5%;
+  }
+}
