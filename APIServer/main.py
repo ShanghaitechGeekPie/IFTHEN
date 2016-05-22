@@ -10,8 +10,8 @@ if __name__ == '__main__':
     app = tornado.web.Application(
         handlers=[
             (r'^/?$', DefaultHandler),
-            (r'^/all/?$', AllAPIHandler),
-            (r'^/api/([a-zA-Z0-9]+)/?$', QueryHandler)
+            (r'^/api/APIList/?$', AllAPIHandler),
+            (r'^/api/([a-zA-Z0-9]+)/?$', APIHandler)
         ],
         debug=True,
         autoreload=True,

@@ -5,20 +5,37 @@ import models
 import datetime
 import requests
 
+import utils
 
-class DefaultHandler(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler):
+    def prepare(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+
+class DefaultHandler(BaseHandler):
     def get(self):
         msg = {'message': 'Welcome to IFTHEN API server.', 'status': True}
         self.write(json.dumps(msg))
 
 
-class AllAPIHandler(tornado.web.RequestHandler):
-    pass
+class AllAPIHandler(BaseHandler):
+    def get(self):
+        apis = models.API.get_all()
+        ret = {'name':'Basic', 'apis': []}
+        for a in apis:
+            ret['apis'].append({
+                'name': a.name,
+                'slug': a.slug,
+                'type': a.type,
+                'args': a.args,
+                'retu': a.return_type,
+                'authority': a.authority
+            })
+        self.finish(json.dumps(ret))
 
 
-class QueryHandler(tornado.web.RequestHandler):
+class APIHandler(BaseHandler):
     def get(self, api_name):
-        api = models.API.get(_name=api_name)
+        api = models.API.get(_slug=api_name)
         if api is None:
             self.write(json.dumps({
                 'message': 'No such API: ' + api_name
@@ -42,6 +59,6 @@ class QueryHandler(tornado.web.RequestHandler):
         return
 
 
-class ActionHandler(tornado.web.RequestHandler):
-    def post(self):
-        pass
+# class ActionHandler(tornado.web.RequestHandler):
+#     def post(self):
+#         pass
