@@ -8,7 +8,7 @@ def sendmail(to, msg):
         msg['From'] = 'revolutionist@163.com'
         msg['To'] = to
         s = smtplib.SMTP('smtp.163.com')
-        s.login('revolutionist', 'c5201314')
+        s.login('revolutionist', '')
         s.send_message(msg)
         s.quit()
         return 'succeed'
